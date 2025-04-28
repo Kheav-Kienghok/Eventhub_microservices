@@ -60,7 +60,7 @@ app.use('/auth', createProxyMiddleware({
 }));
 
 
-app.use('/modify',
+app.use('/event',
   verifyToken,
   checkUserRole(['admin']), // Only admin can modify or delete events
   createProxyMiddleware({
@@ -84,7 +84,7 @@ app.use('/bookings',
   })
 );
 
-app.use('/',
+app.use('/events',
   verifyToken,
   createProxyMiddleware({
     target: EVENT_SERVICE_URL,

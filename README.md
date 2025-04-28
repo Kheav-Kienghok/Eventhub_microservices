@@ -1,41 +1,103 @@
-# Event System Application
+# 🎫 Event Booking Microservices System
 
-## Description
+## 📘 Overview
 
-The **Event System Application** is a platform that allows users to easily create, manage, and register for events. It aims to simplify the event management process for both organizers and attendees by providing a streamlined interface and powerful features for event scheduling, user registration, and more.
+The **Event System Application** is a microservices-based platform that enables users to **register, browse, and book events**, while providing **admins** full control to **create, modify, and manage** events and bookings. Each service is **modular**, **independently deployable**, and routed through a centralized **API Gateway**.
 
-## Features
+---
 
-- **User Registration/Login**: Users can create accounts and log in to the platform.
-- **Event Creation**: Organizers can create events, specify dates, times, and other details.
-- **Event Registration**: Attendees can browse and register for events of interest.
-- **Admin Panel**: Admin users can view and manage events, user registrations, and other system resources.
+## 🚀 Features
 
-## Tech Stack
+- 🔐 **User Authentication** – Secure registration and login for users and admins using JWT.
+- 📅 **Event Creation & Management** – Admins can create, update, and delete events.
+- 🎟️ **Event Booking** – Users can register for events and view their bookings.
+- 🛠️ **Admin Panel Access** – Admins can manage all bookings and events.
+- 📡 **Microservices Architecture** – Decoupled services for scalability and maintainability.
+- 🔄 **API Gateway** – Centralized routing, authentication, and role-based access control.
 
-- **Frontend**: Postman
-- **Backend**: Node.js, Express.js
-- **Database**: MongoDB
-- **Authentication**: JWT (JSON Web Tokens)
-- **Hosting/Deployment**: Docker, AWS, Kubernetes (Minikube) (localhost)
+---
 
-## Installation
+## 🧰 Tech Stack
 
-### 1. Clone the repository
+| Layer         | Technology                            |
+|---------------|----------------------------------------|
+| Frontend      | Postman (for testing APIs)             |
+| Backend       | Node.js, Express.js                    |
+| Database      | MongoDB                                |
+| Auth          | JWT (JSON Web Tokens)                  |
+| DevOps/Infra  | Docker, AWS, Kubernetes (Minikube)     |
 
-```bash
-git clone https://github.com/kheav-kienghok/event-system-application.git
-cd event-system-application
-```
+---
+## 🧱 Microservices Architecture
 
+![Microservices Architecture Diagram](/images/Diagram.png)
 
-### 2. Run 
-You need to have docker installed on your machine and also minikube as well
-```bash
-    minikube start
-    minikube dashboard
-```
+---
 
-```bash
-    kubectl apply -f k8s/
-```
+## 🛠️ Microservices Breakdown
+
+### 🔐 Authentication Microservice
+
+Handles login and registration for both users and admins.
+
+| Endpoint         | Method | Description               |
+|------------------|--------|---------------------------|
+| `/auth/register` | POST   | Register a new user       |
+| `/auth/login`    | POST   | Login for user or admin   |
+
+> Distinguishes roles via JWT payload (`role: "admin"` or `"user"`)
+
+---
+
+### 🎟️ Booking Event Microservice
+
+Allows users to book and view tickets, and admins to view all bookings.
+
+| Endpoint                      | Method | Description                    |
+|-------------------------------|--------|--------------------------------|
+| `/booking/book`               | POST   | Book a ticket for an event     |
+| `/booking/my-tickets`         | GET    | View user’s booked tickets     |
+| `/booking/admin/all-bookings` | GET    | View all bookings (admin only) |
+
+---
+
+### ✏️ Modify & Delete Event Microservice
+
+Allows admins to update or delete events.
+
+| Endpoint                          | Method | Description         |
+|-----------------------------------|--------|---------------------|
+| `/event/manage/edit/:eventId`     | PUT    | Edit event details  |
+| `/event/manage/delete/:eventId`   | DELETE | Delete an event     |
+
+---
+
+### 📢 Event Service
+
+Admins can create events. All users can view listings and detailed info.
+
+| Endpoint                       | Method | Description                           |
+|--------------------------------|--------|---------------------------------------|
+| `/events/create`               | POST   | Create a new event (admin only)       |
+| `/events/all`                  | GET    | List all available events             |
+| `/events/details/:eventId`     | GET    | Get detailed info (role-based view)   |
+
+---
+
+## 🌐 API Gateway
+
+The API Gateway routes all HTTP requests to their corresponding microservices. It also handles:
+
+- ✅ Token verification (JWT)
+- 🛡️ Role-based access control
+- 🔄 Centralized routing and reverse proxy
+- 🚧 Centralized error and access logging
+
+### 🔁 Gateway Route Mapping
+
+| Route Prefix        | Microservice                  | Purpose                       |
+|---------------------|-------------------------------|-------------------------------|
+| `/auth/*`           | Authentication Service        | Login & Registration          |
+| `/booking/*`        | Booking Service               | Ticket booking functionality  |
+| `/event/manage/*`   | Modify/Delete Event Service   | Admin: Edit & delete events   |
+| `/events/*`         | Event Service                 | View & create events          |

@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: modify-del-service
-          image: kienghok/modify_del_service:v1.0
+          image: kienghok/modify_del_service:latest
           ports:
             - containerPort: 5003
 ---

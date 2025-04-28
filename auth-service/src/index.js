@@ -21,7 +21,7 @@ app.post('/register', async (req, res) => {
     const { username, email, password } = req.body;
 
     if (!username || !password || !email) {
-        return res.status(400).json({ message: 'Username and password are required.' });
+        return res.status(400).json({ message: 'Username, Email and password are required.' });
     }
 
     try {

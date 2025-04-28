@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: auth-service
-          image: kienghok/auth_service:v1.0
+          image: kienghok/auth_service:latest
           ports:
             - containerPort: 5001
 ---

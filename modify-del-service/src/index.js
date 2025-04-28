@@ -9,11 +9,11 @@ const PORT = process.env.PORT || 3003;
 // Middleware
 app.use(bodyParser.json());
 
-app.put('/event/:id', async (req, res) => {
-  console.log("Updating event with ID:", req.params.id);
+app.put('/manage/edit/:eventId', async (req, res) => {
+
   try {
     const updatedEvent = await Event.findByIdAndUpdate(
-      req.params.id,
+      req.params.eventId,
       req.body,
       { new: true, runValidators: true }
     );
@@ -29,9 +29,9 @@ app.put('/event/:id', async (req, res) => {
 });
 
 // DELETE - Delete event by ID
-app.delete('/event/:id', async (req, res) => {
+app.delete('/manage/delete/:eventId', async (req, res) => {
   try {
-    const deletedEvent = await Event.findByIdAndDelete(req.params.id);
+    const deletedEvent = await Event.findByIdAndDelete(req.params.eventId);
 
     if (!deletedEvent) {
       return res.status(404).json({ message: 'Event not found' });

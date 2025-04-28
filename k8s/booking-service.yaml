@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: booking-service
-          image: kienghok/booking_service:v2.0
+          image: kienghok/booking_service:latest
           ports:
             - containerPort: 5004
 

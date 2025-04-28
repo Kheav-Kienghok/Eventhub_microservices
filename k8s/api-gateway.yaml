@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: api-gateway
-          image: kienghok/api_gateway:v3.0
+          image: kienghok/api_gateway:latest
           ports:
             - containerPort: 5000
           env:

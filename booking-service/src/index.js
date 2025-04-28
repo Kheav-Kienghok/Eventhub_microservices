@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 3004;
 app.use(bodyParser.json());
 
 // GET /bookings — Admin-only route to get all bookings
-app.get('/bookings', async (req, res) => {
+app.get('/admin/all-bookings', async (req, res) => {
   const role = req.headers['x-user-role'];
 
   if (role !== 'admin') {
@@ -32,7 +32,7 @@ app.get('/bookings', async (req, res) => {
  * GET /bookings/me
  * Get bookings for the logged-in user
  */
-app.get('/bookings/me', async (req, res) => {
+app.get('/my-tickets', async (req, res) => {
 
     const userId = req.headers['x-user-id'];
 
@@ -51,7 +51,7 @@ app.get('/bookings/me', async (req, res) => {
 });
 
 // POST /bookings — Create a new booking or update an existing one
-app.post('/bookings', async (req, res) => {
+app.post('/book', async (req, res) => {
 
   const userId = req.headers['x-user-id'];
 

@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 3002;
 app.use(bodyParser.json());
 
 // Create Event Endpoint
-app.post('/event', async (req, res) => {
+app.post('/create', async (req, res) => {
 
   const role = req.headers['x-user-role'];
   if (role !== 'admin') {
@@ -38,7 +38,7 @@ app.post('/event', async (req, res) => {
 // Get All Events Endpoint
 // This endpoint is accessible to both admin and regular users
 // Admins can see all events, while regular users can only see events with available tickets
-app.get('/events', async (req, res) => {
+app.get('/all', async (req, res) => {
 
   const role = req.headers['x-user-role'];
 
